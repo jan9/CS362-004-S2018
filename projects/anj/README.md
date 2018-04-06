@@ -1,2 +1,1 @@
-Name:Ju An, onid: anj
-
+This is my assignment-1 submission! 
