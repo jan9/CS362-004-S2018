@@ -1281,7 +1281,7 @@ int cardEffect_council_room (int currentPlayer, struct gameState *state, int han
 	int i;
 	
 	//+4 Cards
-	for (i = 0; i < 2; i++) // BUG: changed from for (i = 0; i < 4; i++)
+	for (i = 0; i < 2; i++) // BUG: i < 2 changed from for (i = 0; i < 4; i++)
 	{
 		drawCard(currentPlayer, state);
 	}
@@ -1292,7 +1292,7 @@ int cardEffect_council_room (int currentPlayer, struct gameState *state, int han
     //Each other player draws a card
     for (i = 0; i < state->numPlayers; i++)
 	{
-		if ( i == currentPlayer ) //BUG: changed from i != currentPlayer
+		if ( i == currentPlayer ) //BUG: changed to i ++ currentPlayerfrom i != currentPlayer
 	    {
 	    	drawCard(i, state);
 	    }
@@ -1374,7 +1374,7 @@ int cardEffect_smithy(int currentPlayer, struct gameState *state, int handPos)
 	int i;
 	
 	//+3 Cards
-	for (i = 0; i < 1; i++) // Bug: changed from "for (i = 0; i < 3; i++)"
+	for (i = 0; i < 4; i++) // Bug: changed from "for (i = 0; i < 3; i++)"
 	{
 	  drawCard(currentPlayer, state);
 	}
