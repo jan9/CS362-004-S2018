@@ -1,0 +1,119 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2:* Author: Ju An
+        -:    3:* Date: April 29, 2018
+        -:    4:* OSU CS 362 - Assignment 3: Unit Test 1
+        -:    5:* This program is a unit test for isGameOver() function in dominion.c
+        -:    6:*/
+        -:    7:
+        -:    8:#include "dominion.h"
+        -:    9:#include "dominion_helpers.h"
+        -:   10:#include "rngs.h"
+        -:   11:#include <string.h>
+        -:   12:#include <stdio.h>
+        -:   13:
+        -:   14:// for more detailed results, use NOISY_TEST 1
+        -:   15:#define NOISY_TEST 1
+        -:   16:
+        -:   17:// asserttrue function instead of the standard C assert
+        -:   18:// if assert is not true return 1
+        6:   19:int asserttrue (int testedVal, int expectedVal) 
+        -:   20:{
+        6:   21:	if (expectedVal == testedVal) {
+        -:   22:		#if (NOISY_TEST == 1)
+        6:   23:			printf("\n	Actual value: %d, Expected value: %d\n", testedVal, expectedVal);
+        6:   24:			printf("\n	PASS (assertion true)\n");
+        -:   25:		#endif
+        6:   26:		return 0;
+        -:   27:	} else {
+        -:   28:		#if (NOISY_TEST == 1)
+    #####:   29:			printf("\n	Actual value: %d, Expected value: %d\n", testedVal, expectedVal);	
+    #####:   30:			printf("\n	FAIL (assertion false)\n");
+        -:   31:		#endif
+    #####:   32:		return 1;
+        -:   33:	}
+        -:   34:}
+        -:   35:
+        -:   36:// testing the isGameOver() from dominion.c
+        1:   37:int main()
+        -:   38:{
+        -:   39:    // counts failed tests
+        1:   40:	int failure = 0;
+        -:   41:    
+        -:   42:    // test game variable initialization
+        -:   43:    int i;
+        1:   44:	int seed = 12321;
+        1:   45:	int numPlayer = 2;
+        1:   46:	int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   47:               remodel, smithy, village, baron, great_hall};
+        -:   48:	struct gameState G;
+        -:   49:
+        1:   50:	printf("**********************************************\n");
+        1:   51:    printf("Testing -> isGameOver()\n");
+        1:   52:	memset(&G, 23, sizeof(struct gameState));   		 // clear the game state
+        1:   53:    i = initializeGame(numPlayer, k, seed, &G);   // initialize a new game
+        -:   54:	
+        -:   55:	// TEST 1: check to see if game is over when there are no more Province cards
+        1:   56:	printf("\nTest 1: No more province cards + money supply available\n");
+        1:   57:	G.supplyCount[province] = 0;
+        1:   58:	G.supplyCount[0] = 1;
+        1:   59:	G.supplyCount[1] = 1;
+        1:   60:	G.supplyCount[2] = 1;
+        1:   61:	failure  += asserttrue (isGameOver(&G), 1); 
+        -:   62:	
+        -:   63:	// TEST 2: check to see if game is over when there are no more money (copper, silver, AND gold) supply
+        1:   64:	printf("\nTest 2: Province cards available + no money supply left\n");
+        1:   65:	G.supplyCount[province] = 1;
+        1:   66:	G.supplyCount[0] = 0;
+        1:   67:	G.supplyCount[1] = 0;
+        1:   68:	G.supplyCount[2] = 0;
+        1:   69:	failure  += asserttrue (isGameOver(&G), 1); 
+        -:   70:	
+        -:   71:	// TEST 3: check to see if game is over when both ending conditions are met (no province cards & no money supply)
+        1:   72:	printf("\nTest 3: No province cards left and empty money supply\n");
+        1:   73:	G.supplyCount[province] = 0;
+        1:   74:	G.supplyCount[0] = 0;
+        1:   75:	G.supplyCount[1] = 0;
+        1:   76:	G.supplyCount[2] = 0;
+        1:   77:	failure  += asserttrue (isGameOver(&G), 1); 
+        -:   78:	
+        -:   79:	// TEST 4: check to see if game is over when one of three money supply is still available
+        1:   80:	printf("\nTest 4: There is a province card and at least one money card available from money supply piles\n");
+        1:   81:	G.supplyCount[province] = 1;
+        1:   82:	G.supplyCount[0] = 0;
+        1:   83:	G.supplyCount[1] = 1;
+        1:   84:	G.supplyCount[2] = 0;
+        1:   85:	failure  += asserttrue (isGameOver(&G), 0); 
+        -:   86:	
+        -:   87:	// TEST 5: check to see if game doesn't finish when ending conditions are not met
+        1:   88:	printf("\nTest 5: There is a province card and non-empty supply piles\n");
+        1:   89:	G.supplyCount[province] = 1;
+        1:   90:	G.supplyCount[0] = 1;
+        1:   91:	G.supplyCount[1] = 1;
+        1:   92:	G.supplyCount[2] = 1;
+        1:   93:	failure  += asserttrue (isGameOver(&G), 0); 
+        -:   94:	
+        -:   95:	// TEST 6: check to see if game is over when supply piles have invalid numbers
+        1:   96:	printf("\nTest 6: Invalid number of cards (negative numbers)\n");
+        1:   97:	G.supplyCount[province] = -1;
+        1:   98:	G.supplyCount[0] = -6;
+        1:   99:	G.supplyCount[1] = 0;
+        1:  100:	G.supplyCount[2] = -3;
+        1:  101:	failure  += asserttrue (isGameOver(&G), 0); 
+        -:  102:	
+        1:  103:	printf("\n***************** RESULTS *********************\n");
+        1:  104:    if (failure > 0) {
+    #####:  105:        printf("\nTEST FAILED\n");
+    #####:  106:        printf("Count of failed tests: %d\n",failure);
+        -:  107:    }
+        -:  108:    else {
+        1:  109:    	printf("\nPASSED ALL THE TESTS\n");
+        1:  110:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
+        -:  111:    }
+        1:  112:    printf("**********************************************\n");
+        1:  113:	return 0;
+        -:  114:}

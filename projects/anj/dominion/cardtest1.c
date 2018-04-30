@@ -60,7 +60,7 @@ int main()
                remodel, smithy, village, baron, great_hall};
 	struct gameState G, savedData;
 	
-	int seed = 324234432;
+	int seed = 72645;
 	
 	printf("**********************************************\n");
     printf("Testing -> Adventurer Card\n");
@@ -74,7 +74,7 @@ int main()
 	
 	// 2. check player 1's # of card in deck
 	printf("Player 1 has %d cards in deck.\n", savedData.deckCount[player1]);
-	
+	int numDeckCards = savedData.deckCount[player1];
 	// 3. check player 1's # of treasure cards in hand
 	for (i = 0; i < savedData.handCount[player1]; i++) {
 		card = savedData.hand[player1][i];
@@ -84,6 +84,8 @@ int main()
 	}
 	int origHandTreasure = origTreasureCount;
 	printf("Player 1 has %d treasure cards in hand.\n", origHandTreasure);
+	
+	
 	
 	origTreasureCount = 0;
 	// 4. check player 1's # of treasure cards in hand
@@ -135,9 +137,11 @@ int main()
 	
 	printf("\n***************** RESULTS *********************\n");
 	
-	printf("\nTEST 1. Player 1's Treasure counts increase by 2 after card is played \n");
+	printf("\nTEST 1. Player 1's Treasure counts should increase by 2 after card is played \n");
 	printf("\n   Checking Player 1's handCount\n");
 	failure  += asserttrue (savedData.handCount[player1]+2,G.handCount[player1]);
+	printf("\n   Checking Player 1's deckCount\n");
+	failure  += asserttrue (savedData.deckCount[player1],G.deckCount[player1] + 2);
 	printf("\n   Checking Player 1's treasure count in hand\n");
 	failure  += asserttrue (newHandTreasure,origHandTreasure+2);
 	
