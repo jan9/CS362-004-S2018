@@ -51,10 +51,6 @@ int main()
 	int numPlayer = 2;
 	int player1 = 0;
 	int player2 = 1;
-	
-	int card;
-	int origTreasureCount = 0;
-	int newTreasureCount = 0;
 
 	int k[10] = {adventurer, council_room, feast, gardens, mine,
                remodel, smithy, village, baron, great_hall};

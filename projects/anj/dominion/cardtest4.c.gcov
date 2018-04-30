@@ -1,0 +1,145 @@
+        -:    0:Source:cardtest4.c
+        -:    0:Graph:cardtest4.gcno
+        -:    0:Data:cardtest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2:* Author: Ju An
+        -:    3:* Date: April 29, 2018
+        -:    4:* OSU CS 362 - Assignment 3: Card Test 4
+        -:    5:* This is a unit test for Village card in dominion.c
+        -:    6:*/
+        -:    7:
+        -:    8:#include "dominion.h"
+        -:    9:#include "dominion_helpers.h"
+        -:   10:#include "rngs.h"
+        -:   11:#include <string.h>
+        -:   12:#include <stdio.h>
+        -:   13:
+        -:   14:// for more detailed results, use NOISY_TEST 1
+        -:   15:#define NOISY_TEST 1
+        -:   16:
+        -:   17:// asserttrue function instead of the standard C assert
+        -:   18:// if assert is not true return 1
+       19:   19:int asserttrue (int expectedVal, int testedVal) 
+        -:   20:{
+       19:   21:	if (testedVal == expectedVal) {
+        -:   22:		#if (NOISY_TEST == 1)
+       18:   23:			printf("\n	Expected value: %d, actual value: %d\n", expectedVal, testedVal);
+       18:   24:			printf("\n	PASS (assertion true)\n");
+        -:   25:		#endif
+       18:   26:		return 0;
+        -:   27:	} else {
+        -:   28:		#if (NOISY_TEST == 1)
+        1:   29:			printf("\n	Expected value: %d, actual value: %d\n", expectedVal, testedVal);	
+        1:   30:			printf("\n	FAIL (assertion false)\n");
+        -:   31:		#endif
+        1:   32:		return 1;
+        -:   33:	}
+        -:   34:}
+        -:   35:
+        -:   36:// testing the cardEffect() function (refactored) from dominion.c
+        -:   37:// test should work whether a card is implemented inside cardEffect or in its own function
+        1:   38:int main()
+        -:   39:{
+        -:   40:    // counts failed tests
+        1:   41:	int failure = 0;
+        -:   42:    
+        -:   43:    // test variable initialization
+        -:   44:	int i;
+        1:   45:	int handpos = 0;
+        1:   46:	int choice1 = 0;
+        1:   47:	int choice2 = 0;
+        1:   48:	int choice3 = 0;
+        1:   49:	int bonus = 0;
+        -:   50:	
+        1:   51:	int numPlayer = 2;
+        1:   52:	int player1 = 0;
+        1:   53:	int player2 = 1;
+        -:   54:	
+        1:   55:	int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   56:               remodel, smithy, village, baron, great_hall};
+        -:   57:	struct gameState G, savedData;
+        -:   58:	
+        1:   59:	int seed = 5656;
+        -:   60:	
+        1:   61:	printf("**********************************************\n");
+        1:   62:    printf("Testing -> Village Card\n");
+        1:   63:    memset(&G, 23, sizeof(struct gameState));   		 // clear the game state
+        1:   64:    initializeGame(numPlayer, k, seed, &G);   // initialize a new game
+        1:   65:    memcpy(&savedData, &G, sizeof(struct gameState));
+        -:   66:	
+        1:   67:	printf("\n< P1 Data BEFORE Village Card is Played >\n");
+        -:   68:	// 1. check player 1's # of card in hand
+        1:   69:	printf("Player 1 has %d cards in hand.\n", savedData.handCount[player1]);
+        -:   70:	
+        -:   71:	// 2. check player 1's # of card in deck
+        1:   72:	printf("Player 1 has %d cards in deck.\n", savedData.deckCount[player1]);
+        -:   73:	
+        -:   74:	// 3. check player 1's # of card in discard pile
+        1:   75:	printf("Player 1 has %d cards in discard pile.\n", savedData.discardCount[player1]);
+        -:   76:	
+        -:   77:	// 4. Play Village Card
+        1:   78:	cardEffect(village, choice1, choice2, choice3, &G, handpos, &bonus);
+        -:   79:	
+        1:   80:	printf("\n< P1 Data AFTER Village Card is Played >\n");
+        -:   81:	// 5. check player 1's # of card in hand
+        1:   82:	printf("Player 1 has %d cards in hand.\n", G.handCount[player1]);
+        -:   83:	
+        -:   84:	// 6. check player 1's # of card in deck
+        1:   85:	printf("Player 1 has %d cards in deck.\n", G.deckCount[player1]);
+        -:   86:	
+        -:   87:	// 7. check player 1's # of card in discard pile
+        1:   88:	printf("Player 1 has %d cards in discard pile.\n", G.discardCount[player1]);
+        -:   89:	
+        -:   90:	
+        1:   91:	printf("\n***************** RESULTS *********************\n");
+        -:   92:	
+        1:   93:	printf("\nTEST 1. Check player 1 gets to draw 1 card \n");
+        1:   94:	printf("\n   Check player 1's deckCount\n");
+        1:   95:	failure  += asserttrue (savedData.handCount[player1], G.handCount[player1]);
+        1:   96:	printf("\n   Check player 1's deckCount\n");
+        1:   97:	failure  += asserttrue (savedData.deckCount[player1]-1,G.deckCount[player1]);
+        -:   98:	
+        1:   99:	printf("\nTEST 2. Check to see discardCard() function within Village Card's code worked\n");
+        -:  100:	// NOTE: used card sent to discardCard() to be added on to a played pile
+        1:  101:	printf("\n   Checking... \n");
+        1:  102:	printf("\n   Prev # of discard count = %d\n", savedData.playedCardCount);
+        1:  103:	printf("\n   Current # of discard count = %d\n", G.playedCardCount);
+        1:  104:	failure  += asserttrue (savedData.playedCardCount+1,G.playedCardCount);
+        -:  105:	
+        1:  106:	printf("\nTEST 3. Check if player1's numActions increased by +2\n");
+        1:  107:	printf("\n   Checking... \n");
+        1:  108:	printf("\n   Prev numActions = %d\n", savedData.numActions);
+        1:  109:	printf("\n   Current of numActions = %d\n", G.numActions);
+        1:  110:	failure  += asserttrue (savedData.numActions+2,G.numActions);
+        -:  111:	
+        1:  112:	printf("\nTEST 4. Check if player 2's hand and deck cards remains the same\n");
+        1:  113:	printf("\n   Check player 2's handCount\n");
+        1:  114:	failure  += asserttrue (savedData.handCount[player2],G.handCount[player2]);
+        1:  115:	printf("\n   Check player 2's deckCount\n");
+        1:  116:	failure  += asserttrue (savedData.deckCount[player2],G.deckCount[player2]);
+        -:  117:	
+        1:  118:	printf("\nTEST 5. Check if kingdom and victory cards have any bugs\n");
+        1:  119:	printf("\n   Checking kingdom cards' supply piles\n");
+       11:  120:	for (i = 0; i < 10; i++) {
+       10:  121:		failure  += asserttrue (savedData.supplyCount[k[i]], G.supplyCount[k[i]]);
+        -:  122:	}
+        1:  123:	printf("\n   Checking province card pile:\n");
+        1:  124:	failure  += asserttrue (savedData.supplyCount[province], G.supplyCount[province]);
+        1:  125:	printf("\n   Checking duchy card pile:\n");
+        1:  126:	failure  += asserttrue (savedData.supplyCount[duchy], G.supplyCount[duchy]);
+        1:  127:	printf("\n   Checking estate card pile:\n");
+        1:  128:	failure  += asserttrue (savedData.supplyCount[estate], G.supplyCount[estate]);
+        -:  129:	
+        1:  130:    if (failure > 0) {
+        1:  131:        printf("\nTEST FAILED\n");
+        1:  132:        printf("Count of failed tests: %d\n",failure);
+        -:  133:    }
+        -:  134:    else {
+    #####:  135:    	printf("\nPASSED ALL THE TESTS\n");
+    #####:  136:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
+        -:  137:    }
+        1:  138:    printf("**********************************************\n");
+        1:  139:	return 0;
+        -:  140:}
