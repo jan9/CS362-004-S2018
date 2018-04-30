@@ -1,5 +1,5 @@
-Result for running Dominion test suit:
-unittest1.c:
+ASSIGNMENT 3: UNIT TEST RESULTS\n
+unittest1.c:\n
 **********************************************
 Testing -> isGameOver()
 
@@ -1468,7 +1468,7 @@ Creating 'dominion.c.gcov'
         -: 1407:
         -: 1408://end of dominion.c
         -: 1409:
-unittest2.c:
+unittest2.c:\n
 **********************************************
 Testing -> getCost()
 
@@ -3075,7 +3075,7 @@ Creating 'dominion.c.gcov'
         -: 1407:
         -: 1408://end of dominion.c
         -: 1409:
-unittest3.c:
+unittest3.c:\n
 **********************************************
 Testing -> gainCard()
 
@@ -4550,7 +4550,7 @@ Creating 'dominion.c.gcov'
         -: 1407:
         -: 1408://end of dominion.c
         -: 1409:
-unittest4.c:
+unittest4.c:\n
 **********************************************
 Testing -> updateCoins()
 
@@ -6183,7 +6183,7 @@ Creating 'dominion.c.gcov'
         -: 1407:
         -: 1408://end of dominion.c
         -: 1409:
-cardtest1.c:
+cardtest1.c:\n
 **********************************************
 Testing -> Adventurer Card
 
@@ -7724,7 +7724,7 @@ Creating 'dominion.c.gcov'
         -: 1407:
         -: 1408://end of dominion.c
         -: 1409:
-cardtest2.c:
+cardtest2.c:\n
 **********************************************
 Testing -> Smithy Card
 
@@ -9267,7 +9267,7 @@ Creating 'dominion.c.gcov'
         -: 1407:
         -: 1408://end of dominion.c
         -: 1409:
-cardtest3.c:
+cardtest3.c:\n
 **********************************************
 Testing -> Council Room Card
 
@@ -10822,7 +10822,7 @@ Creating 'dominion.c.gcov'
         -: 1407:
         -: 1408://end of dominion.c
         -: 1409:
-cardtest4.c:
+cardtest4.c:\n
 **********************************************
 Testing -> Village Card
 
