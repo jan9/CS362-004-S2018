@@ -1,3 +1,11 @@
+/*
+* Author: Ju An
+* Date: May 3rd, 2018
+* OSU CS 362 - Assignment: Random Testing Quiz
+* Implementation of a random tester for the function testme()
+* Including only the letters used in the target statment
+*/
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -5,14 +13,20 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+    char array [9] = {'[', '(', '{', ' ', 'a', 'x', '}', ')', ']' };
+    return array [rand() % 9];
 }
 
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+    char array [5] = {'r', 'e', 's', 'e', 't'};
+    char randStr [6];
+    randStr[6] = '\n';
+    int i;
+    for (i = 0; i < 5; i++) {
+    	randStr [i] = array[rand()%5];
+    	}
+    return randStr;
 }
 
 void testme()
@@ -42,7 +56,7 @@ void testme()
        && s[4] == 't' && s[5] == '\0'
        && state == 9)
     {
-      printf("error ");
+      printf("error \n");
       exit(200);
     }
   }
