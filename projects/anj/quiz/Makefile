@@ -12,4 +12,4 @@ testme: testme.c
 	./testme
 
 clean:
-	rm -f *.o testme.exe testme *.gcov *.gcda *.gcno
+	rm -f *.o testme *.gcov *.gcda *.gcno
