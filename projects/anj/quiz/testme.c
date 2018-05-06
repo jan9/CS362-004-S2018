@@ -13,6 +13,9 @@
 
 char inputChar()
 {
+    // Using ASCII char #32 (' ') - 125 ('}')
+    //char randChar = rand () % (125 - 32) + 32;
+    //return randChar;
     char array [9] = {'[', '(', '{', ' ', 'a', 'x', '}', ')', ']' };
     return array [rand() % 9];
 }
@@ -20,8 +23,8 @@ char inputChar()
 char *inputString()
 {
     char array [5] = {'r', 'e', 's', 'e', 't'};
-    char randStr [6];
-    randStr[6] = '\n';
+    static char randStr [6];
+    randStr[5] = '\0';
     int i;
     for (i = 0; i < 5; i++) {
     	randStr [i] = array[rand()%5];
