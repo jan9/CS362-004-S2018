@@ -59,7 +59,7 @@ int main(){
 		// randomize hand count and the player's hand
 		//treasure_pre = 0;
 		G.handCount[player1] = rand() % MAX_HAND;
-		G.hand[player1][0] = smithy;	// first card on hand will be adventurer card
+		G.hand[player1][0] = smithy;	// first card on hand will be smithy card
 		for (j = 1; j < G.handCount[player1]; j++) 
 		{
 			// fill the player's hand with random cards

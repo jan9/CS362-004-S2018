@@ -43,12 +43,7 @@ int main(){
 	
 	srand(time(NULL));
 	
-	/*
-You may need only to  randomize the variables that impact on the state of the function under test. 
-For example, if you test adventurer card, you may need to randomize the number of cards in hand, 
-you set the first card to adventurer, number of cards in deck, number of cards in discard, etc.
-Then you need Play-Adventurer card, and finally, assert and compare the original gamestate and after-play-card gamestate.
-*/
+
 	for (i = 0; i < NUM_TRIES; i++){
 		printf("\n************ Testing Adventurer Card: %d/%d ****************\n", i+1, NUM_TRIES);
 		// randomize and setup the variables 

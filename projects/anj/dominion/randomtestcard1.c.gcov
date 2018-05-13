@@ -1,0 +1,139 @@
+        -:    0:Source:randomtestcard1.c
+        -:    0:Graph:randomtestcard1.gcno
+        -:    0:Data:randomtestcard1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:/*
+        -:    2:* Author: Ju An
+        -:    3:* Date: May 12, 2018
+        -:    4:* OSU CS 362 - Assignment 4: Random Tester for Smithy Card
+        -:    5:* This is a random tester for Smithy card. 
+        -:    6:* It tests to see if the implemented code actually allows a player to get 3 extra cards
+        -:    7:* from the player's deck pile on the same turn.
+        -:    8:*/
+        -:    9:
+        -:   10:#include "dominion.h"
+        -:   11:#include "dominion_helpers.h"
+        -:   12:#include "rngs.h"
+        -:   13:#include <string.h>
+        -:   14:#include <stdio.h>
+        -:   15:#include <stdlib.h>
+        -:   16:#include <time.h>
+        -:   17:
+        -:   18:#define NUM_TRIES 1000	// number of tests 
+        -:   19:
+function main called 1 returned 100% blocks executed 97%
+        1:   20:int main(){
+        -:   21:	int i, j, r;
+        1:   22:	int failed = 0;
+        -:   23:	
+        1:   24:	int handpos = 0;
+        1:   25:	int choice1 = 0;
+        1:   26:	int choice2 = 0;
+        1:   27:	int choice3 = 0;
+        1:   28:	int bonus = 0;
+        -:   29:	
+        -:   30:	int numPlayers;
+        1:   31:	int player1 = 0; // current player
+        -:   32:
+        1:   33:	int k[10] = {adventurer, council_room, feast, gardens, mine,
+        -:   34:               remodel, smithy, village, baron, great_hall};
+        -:   35:    
+        -:   36:	struct gameState G, orig;
+        -:   37:	
+        1:   38:	srand(time(NULL));
+call    0 returned 100%
+call    1 returned 100%
+        -:   39:	
+     1001:   40:	for (i = 0; i < NUM_TRIES; i++){
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+     1000:   41:		printf("\n************ Testing Smithy Card: %d/%d ****************\n", i+1, NUM_TRIES);
+call    0 returned 100%
+        -:   42:		// randomize and setup the variables 
+     1000:   43:		numPlayers = rand() % 3 + 2;
+call    0 returned 100%
+     1000:   44:		int seed = rand()%RAND_MAX;
+call    0 returned 100%
+     1000:   45:		memset(&G, 23, sizeof(struct gameState));	//clean gamestate
+     1000:   46:		r = initializeGame (numPlayers, k, seed, &G);	
+call    0 returned 100%
+        -:   47:
+        -:   48:		
+     1000:   49:		player1 = rand() % numPlayers;	// current player
+call    0 returned 100%
+     1000:   50:		G.whoseTurn = player1;
+        -:   51:		
+        -:   52:		// randomize deck count and the player's deck 
+     1000:   53:		G.deckCount[player1] = rand() % MAX_DECK;
+call    0 returned 100%
+   251034:   54:		for(j = 0; j < G.deckCount[player1]; j++){			
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+        -:   55:			// place randomly chosen kingdom cards to the deck
+   250034:   56:			G.deck[player1][j] = k[rand()%10];
+call    0 returned 100%
+        -:   57:		}
+        -:   58:
+        -:   59:		// randomize hand count and the player's hand
+        -:   60:		//treasure_pre = 0;
+     1000:   61:		G.handCount[player1] = rand() % MAX_HAND;
+call    0 returned 100%
+     1000:   62:		G.hand[player1][0] = smithy;	// first card on hand will be smithy card
+   244479:   63:		for (j = 1; j < G.handCount[player1]; j++) 
+branch  0 taken 99%
+branch  1 taken 1% (fallthrough)
+        -:   64:		{
+        -:   65:			// fill the player's hand with random cards
+   243479:   66:			G.hand[player1][j] = rand() % 27;
+call    0 returned 100%
+        -:   67:        }
+        -:   68:		
+     1000:   69:		memcpy(&orig, &G, sizeof(struct gameState));
+        -:   70:		
+        -:   71:		//adventurer card effect	
+     1000:   72:		cardEffect(smithy, choice1, choice2, choice3, &G, handpos, &bonus);
+call    0 returned 100%
+        -:   73:
+        -:   74:		
+     1000:   75:		printf("1. Checking card on the Player %d's HAND\n", player1);
+call    0 returned 100%
+     1000:   76:		printf("Card on HAND before using the adventurer card: %d\n", orig.handCount[player1]);
+call    0 returned 100%
+     1000:   77:		printf("Card on HAND after using the adventurer card: %d\n", G.handCount[player1]);
+call    0 returned 100%
+     1000:   78:		if((orig.handCount[player1]+3) < G.handCount[player1])
+branch  0 taken 0% (fallthrough)
+branch  1 taken 100%
+        -:   79:    	{
+    #####:   80:           failed++;
+    #####:   81:           printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 3.\n\n", player1, ((G.handCount[player1])-(orig.handCount[player1])));
+call    0 never executed
+        -:   82:        }
+        -:   83:        
+     1000:   84:        printf("\n2.Checking card on the Player %d's DECK\n", player1);
+call    0 returned 100%
+     1000:   85:        printf("Card on DECK before using the adventurer card: %d\n", orig.deckCount[player1]);
+call    0 returned 100%
+     1000:   86:		printf("Card on DECK after using the adventurer card: %d\n", G.deckCount[player1]);
+call    0 returned 100%
+     1000:   87:		if((orig.deckCount[player1]) > G.deckCount[player1]+3)
+branch  0 taken 99% (fallthrough)
+branch  1 taken 1%
+        -:   88:    	{
+      991:   89:           failed++;
+      991:   90:           printf(" ! TEST FAILED: Player %d took %d cards from deck, instead of 3.\n", player1, ((orig.deckCount[player1])-(G.deckCount[player1])));
+call    0 returned 100%
+        -:   91:        }
+        -:   92:        
+        -:   93:	}
+        1:   94:	printf("\n***************** RANDOM TESTING RESULTS *******************\n");
+call    0 returned 100%
+        1:   95:	printf("\nFailed Tests: %d \n", failed);
+call    0 returned 100%
+        1:   96:	printf("\nPassed Tests: %d \n", (NUM_TRIES-failed));
+call    0 returned 100%
+        1:   97:	printf("\n***************** END OF RANDOM TESTING ********************\n");
+call    0 returned 100%
+        1:   98:	return 0;
+        -:   99:}
