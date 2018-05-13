@@ -16,6 +16,7 @@
 #include <time.h>
 
 #define NUM_TRIES 1000	// number of tests 
+#define NUM_QUESTIONS 2
 
 int main(){
 	int i, j, r;
@@ -75,7 +76,7 @@ int main(){
 		printf("1. Checking card on the Player %d's HAND\n", player1);
 		printf("Card on HAND before using the adventurer card: %d\n", orig.handCount[player1]);
 		printf("Card on HAND after using the adventurer card: %d\n", G.handCount[player1]);
-		if((orig.handCount[player1]+3) < G.handCount[player1])
+		if((orig.handCount[player1]) != G.handCount[player1])
     	{
            failed++;
            printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 3.\n\n", player1, ((G.handCount[player1])-(orig.handCount[player1])));
@@ -87,13 +88,13 @@ int main(){
 		if((orig.deckCount[player1]) > G.deckCount[player1]+3)
     	{
            failed++;
-           printf(" ! TEST FAILED: Player %d took %d cards from deck, instead of 3.\n", player1, ((orig.deckCount[player1])-(G.deckCount[player1])));
+           printf(" ! TEST FAILED: Player %d took %d cards from deck, instead of 3.\n", player1, ((G.deckCount[player1])-(orig.deckCount[player1])));
         }
         
 	}
 	printf("\n***************** RANDOM TESTING RESULTS *******************\n");
-	printf("\nFailed Tests: %d \n", failed);
-	printf("\nPassed Tests: %d \n", (NUM_TRIES-failed));
+	printf("\nFailed Tests: %d/%d\n", failed, (NUM_TRIES*NUM_QUESTIONS));
+	printf("\nPassed Tests: %d/%d\n", ((NUM_TRIES*NUM_QUESTIONS)-failed),(NUM_TRIES*NUM_QUESTIONS));
 	printf("\n***************** END OF RANDOM TESTING ********************\n");
 	return 0;
 }
