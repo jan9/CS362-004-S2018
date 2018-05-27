@@ -72,8 +72,8 @@ int main(){
 
 		
 		printf("1. Checking card on the Player %d's HAND\n", player1);
-		printf("Card on HAND before using the adventurer card: %d\n", orig.handCount[player1]);
-		printf("Card on HAND after using the adventurer card: %d\n", G.handCount[player1]);
+		printf("Card on HAND before using the village card: %d\n", orig.handCount[player1]);
+		printf("Card on HAND after using the village card: %d\n", G.handCount[player1]);
 		if((orig.handCount[player1]) != G.handCount[player1])
     	{
            failed++;
@@ -81,8 +81,8 @@ int main(){
         }
         
         printf("\n2.Checking card on the Player %d's DECK\n", player1);
-        printf("Card on DECK before using the adventurer card: %d\n", orig.deckCount[player1]);
-		printf("Card on DECK after using the adventurer card: %d\n", G.deckCount[player1]);
+        printf("Card on DECK before using the village card: %d\n", orig.deckCount[player1]);
+		printf("Card on DECK after using the village card: %d\n", G.deckCount[player1]);
 		if((orig.deckCount[player1]) != G.deckCount[player1]+1)
     	{
            failed++;
@@ -90,8 +90,8 @@ int main(){
         }
         
     	printf("\n3. Checking if the player took the extra cards on the same turn\n");
-        printf("NumActions left before using the adventurer card: %d\n", orig.numActions);
-		printf("NumActions left after using the adventurer card: %d\n", G.numActions);
+        printf("NumActions left before using the village card: %d\n", orig.numActions);
+		printf("NumActions left after using the village card: %d\n", G.numActions);
 		if((orig.numActions+2) != G.numActions)
     	{
            failed++;
@@ -99,8 +99,8 @@ int main(){
         }
         
         printf("\n4. Checking card on the Player %d's DISCARD pile\n", player1);
-		printf("Card on DISCARD pile before using the adventurer card: %d\n", orig.discardCount[player1]);
-		printf("Card on DISCARD pile after using the adventurer card: %d\n", G.discardCount[player1]);
+		printf("Card on DISCARD pile before using the village card: %d\n", orig.discardCount[player1]);
+		printf("Card on DISCARD pile after using the village card: %d\n", G.discardCount[player1]);
 		if((orig.discardCount[player1]) != G.discardCount[player1])
     	{
            failed++;

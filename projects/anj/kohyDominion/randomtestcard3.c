@@ -67,13 +67,13 @@ int main(){
 		
 		memcpy(&orig, &G, sizeof(struct gameState));
 		
-		//adventurer card effect	
+		//Great_Hall card effect	
 		cardEffect(great_hall, choice1, choice2, choice3, &G, handpos, &bonus);
 
 		
 		printf("1. Checking card on the Player %d's HAND\n", player1);
-		printf("Card on HAND before using the adventurer card: %d\n", orig.handCount[player1]);
-		printf("Card on HAND after using the adventurer card: %d\n", G.handCount[player1]);
+		printf("Card on HAND before using the Great_Hall card: %d\n", orig.handCount[player1]);
+		printf("Card on HAND after using the Great_Hall card: %d\n", G.handCount[player1]);
 		if((orig.handCount[player1]) != G.handCount[player1])
     	{
            failed++;
@@ -82,8 +82,8 @@ int main(){
         
         
         printf("\n2.Checking card on the Player %d's DECK\n", player1);
-        printf("Card on DECK before using the adventurer card: %d\n", orig.deckCount[player1]);
-		printf("Card on DECK after using the adventurer card: %d\n", G.deckCount[player1]);
+        printf("Card on DECK before using the Great_Hall card: %d\n", orig.deckCount[player1]);
+		printf("Card on DECK after using the Great_Hall card: %d\n", G.deckCount[player1]);
 		if((orig.deckCount[player1]) == G.deckCount[player1])
     	{
            failed++;
@@ -91,8 +91,8 @@ int main(){
         }
         
     	printf("\n3. Checking if the player took the extra cards on the same turn\n");
-        printf("NumActions left before using the adventurer card: %d\n", orig.numActions);
-		printf("NumActions left after using the adventurer card: %d\n", G.numActions);
+        printf("NumActions left before using the Great_Hall card: %d\n", orig.numActions);
+		printf("NumActions left after using the Great_Hall card: %d\n", G.numActions);
 		if((orig.numActions+1) != G.numActions)
     	{
            failed++;
