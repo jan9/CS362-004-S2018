@@ -91,7 +91,7 @@ int main()
 	printf("\n***************** RESULTS *********************\n");
 	
 	printf("\nTEST 1. Check player 1 gets to draw 1 card \n");
-	printf("\n   Check player 1's deckCount\n");
+	printf("\n   Check player 1's handCount\n");
 	failure  += asserttrue (savedData.handCount[player1], G.handCount[player1]);
 	printf("\n   Check player 1's deckCount\n");
 	failure  += asserttrue (savedData.deckCount[player1]-1,G.deckCount[player1]);

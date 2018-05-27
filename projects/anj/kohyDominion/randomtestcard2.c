@@ -57,7 +57,6 @@ int main(){
 		}
 
 		// randomize hand count and the player's hand
-		//treasure_pre = 0;
 		G.handCount[player1] = rand() % MAX_HAND;
 		G.hand[player1][0] = village;	// first card on hand will be village card
 		for (j = 1; j < G.handCount[player1]; j++) 
@@ -68,17 +67,17 @@ int main(){
 		
 		memcpy(&orig, &G, sizeof(struct gameState));
 		
-		//adventurer card effect	
+		//village card effect	
 		cardEffect(village, choice1, choice2, choice3, &G, handpos, &bonus);
 
 		
 		printf("1. Checking card on the Player %d's HAND\n", player1);
 		printf("Card on HAND before using the adventurer card: %d\n", orig.handCount[player1]);
 		printf("Card on HAND after using the adventurer card: %d\n", G.handCount[player1]);
-		if((orig.handCount[player1]+1) != G.handCount[player1])
+		if((orig.handCount[player1]) != G.handCount[player1])
     	{
            failed++;
-           printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 1.\n\n", player1, ((G.handCount[player1])-(orig.handCount[player1])));
+           printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 1.\n\n", player1, (((G.handCount[player1])-(orig.handCount[player1]))));
         }
         
         printf("\n2.Checking card on the Player %d's DECK\n", player1);
@@ -102,7 +101,7 @@ int main(){
         printf("\n4. Checking card on the Player %d's DISCARD pile\n", player1);
 		printf("Card on DISCARD pile before using the adventurer card: %d\n", orig.discardCount[player1]);
 		printf("Card on DISCARD pile after using the adventurer card: %d\n", G.discardCount[player1]);
-		if((orig.discardCount[player1]+1) != G.discardCount[player1])
+		if((orig.discardCount[player1]) != G.discardCount[player1])
     	{
            failed++;
            printf(" ! TEST FAILED: Player %d discarded %d cards, instead of 1.\n", player1, ((G.discardCount[player1])-(orig.discardCount[player1])));

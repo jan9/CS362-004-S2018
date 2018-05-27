@@ -60,7 +60,7 @@ int main(){
 		// randomize hand count and the player's hand
 		//treasure_pre = 0;
 		G.handCount[player1] = rand() % MAX_HAND;
-		G.hand[player1][0] = smithy;	// first card on hand will be smithy card
+		G.hand[player1][0] = smithy;	// first card on hand will be smithy cards
 		for (j = 1; j < G.handCount[player1]; j++) 
 		{
 			// fill the player's hand with random cards
@@ -69,7 +69,7 @@ int main(){
 		
 		memcpy(&orig, &G, sizeof(struct gameState));
 		
-		//adventurer card effect	
+		//smithy card effect	
 		cardEffect(smithy, choice1, choice2, choice3, &G, handpos, &bonus);
 
 		
@@ -88,7 +88,7 @@ int main(){
 		if((orig.deckCount[player1]) != G.deckCount[player1]+3)
     	{
            failed++;
-           printf(" ! TEST FAILED: Player %d took %d cards from deck, instead of 3.\n", player1, ((G.deckCount[player1])-(orig.deckCount[player1])));
+           printf(" ! TEST FAILED: Player %d took %d cards from deck, instead of 3.\n", player1, ((orig.deckCount[player1])-(G.deckCount[player1])));
         }
         
 	}

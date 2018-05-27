@@ -401,7 +401,7 @@ Creating 'dominion.c.gcov'
         -:    0:Runs:1
         -:    0:Programs:1
         -:    1:/*
-        -:    2:Team 4: (ONID: kohy) Kaylie's dominion.c code
+        -:    2:Team 4: (ONID: kohy) Hyejin's dominion.c code
         -:    3:https://github.com/kaylieko/CS362-004-S2018/tree/kohy-assignment-3/projects/kohy/dominion
         -:    4:*/
         -:    5:
@@ -2457,10 +2457,10 @@ TEST FAILED
 Count of failed tests: 2
 **********************************************
 File 'cardtest2.c'
-Lines executed:97.01% of 67
-Branches executed:100.00% of 6
-Taken at least once:83.33% of 6
-Calls executed:95.65% of 46
+Lines executed:97.14% of 70
+Branches executed:100.00% of 8
+Taken at least once:87.50% of 8
+Calls executed:95.74% of 47
 Creating 'cardtest2.c.gcov'
 
         -:    0:Source:cardtest2.c
@@ -2545,118 +2545,130 @@ call    0 returned 100%
 call    0 returned 100%
         1:   65:    memcpy(&savedData, &G, sizeof(struct gameState));
         -:   66:	
-        1:   67:	printf("\n< P1 Data BEFORE Smithy Card is Played >\n");
+        -:   67:
+        -:   68:	// randomize hand count and the player's hand
+        1:   69:	G.hand[player1][0] = smithy;	// first card on hand will be smithy cards
+        5:   70:	for (i = 1; i < G.handCount[player1]; i++) 
+branch  0 taken 80%
+branch  1 taken 20% (fallthrough)
+        -:   71:	{
+        -:   72:		// fill the player's hand with random cards
+        4:   73:		G.hand[player1][i] = rand() % 27;
 call    0 returned 100%
-        -:   68:	// 1. check player 1's # of card in hand
-        1:   69:	printf("Player 1 has %d cards in hand.\n", savedData.handCount[player1]);
+        -:   74:       }
+        -:   75:        
+        1:   76:	printf("\n< P1 Data BEFORE Smithy Card is Played >\n");
 call    0 returned 100%
-        -:   70:	
-        -:   71:	// 2. check player 1's # of card in deck
-        1:   72:	printf("Player 1 has %d cards in deck.\n", savedData.deckCount[player1]);
-call    0 returned 100%
-        -:   73:	
-        -:   74:	// 3. check player 1's # of card in discard pile
-        1:   75:	printf("Player 1 has %d cards in discard pile.\n", savedData.discardCount[player1]);
-call    0 returned 100%
-        -:   76:	
-        -:   77:	// 4. Play Smithy Card
-        1:   78:	cardEffect(smithy, choice1, choice2, choice3, &G, handpos, &bonus);
+        -:   77:	// 1. check player 1's # of card in hand
+        1:   78:	printf("Player 1 has %d cards in hand.\n", savedData.handCount[player1]);
 call    0 returned 100%
         -:   79:	
-        1:   80:	printf("\n< P1 Data AFTER Smithy Card is Played >\n");
+        -:   80:	// 2. check player 1's # of card in deck
+        1:   81:	printf("Player 1 has %d cards in deck.\n", savedData.deckCount[player1]);
 call    0 returned 100%
-        -:   81:	// 5. check player 1's # of card in hand
-        1:   82:	printf("Player 1 has %d cards in hand.\n", G.handCount[player1]);
+        -:   82:	
+        -:   83:	// 3. check player 1's # of card in discard pile
+        1:   84:	printf("Player 1 has %d cards in discard pile.\n", savedData.discardCount[player1]);
 call    0 returned 100%
-        -:   83:	
-        -:   84:	// 6. check player 1's # of card in deck
-        1:   85:	printf("Player 1 has %d cards in deck.\n", G.deckCount[player1]);
+        -:   85:	
+        -:   86:	// 4. Play Smithy Card
+        1:   87:	cardEffect(smithy, choice1, choice2, choice3, &G, handpos, &bonus);
 call    0 returned 100%
-        -:   86:	
-        -:   87:	// 7. check player 1's # of card in discard pile
-        1:   88:	printf("Player 1 has %d cards in discard pile.\n", G.discardCount[player1]);
+        -:   88:	
+        1:   89:	printf("\n< P1 Data AFTER Smithy Card is Played >\n");
 call    0 returned 100%
-        -:   89:	
-        -:   90:
-        1:   91:	printf("\n***************** RESULTS *********************\n");
+        -:   90:	// 5. check player 1's # of card in hand
+        1:   91:	printf("Player 1 has %d cards in hand.\n", G.handCount[player1]);
 call    0 returned 100%
         -:   92:	
-        1:   93:	printf("\nTEST 1. Check to see whether or not player 1 got 3 extra cards \n");
+        -:   93:	// 6. check player 1's # of card in deck
+        1:   94:	printf("Player 1 has %d cards in deck.\n", G.deckCount[player1]);
 call    0 returned 100%
-        1:   94:	printf("\n   Checking to see if player1 got 3 cards\n");
+        -:   95:	
+        -:   96:	// 7. check player 1's # of card in discard pile
+        1:   97:	printf("Player 1 has %d cards in discard pile.\n", G.discardCount[player1]);
 call    0 returned 100%
-        1:   95:	failure  += asserttrue (savedData.handCount[player1]+2, G.handCount[player1]);
-call    0 returned 100%
-        1:   96:	printf("\n   Checking to see if the 3 cards were from current player's deck?\n");
-call    0 returned 100%
-        1:   97:	failure  += asserttrue (savedData.deckCount[player1]-3, G.deckCount[player1]);
-call    0 returned 100%
-        -:   98:
+        -:   98:	
         -:   99:
-        1:  100:	printf("\nTEST 2. Check to see discardCard() function within Smithy Card's code worked\n");
+        1:  100:	printf("\n***************** RESULTS *********************\n");
 call    0 returned 100%
-        -:  101:	// NOTE: used card sent to discardCard() to be added on to a played pile
-        1:  102:	printf("\n   Checking... \n");
+        -:  101:	
+        1:  102:	printf("\nTEST 1. Check to see whether or not player 1 got 3 extra cards \n");
 call    0 returned 100%
-        1:  103:	printf("\n   Prev # of discard count = %d\n", savedData.playedCardCount);
+        1:  103:	printf("\n   Checking to see if player1 got 3 cards\n");
 call    0 returned 100%
-        1:  104:	printf("\n   Current # of discard count = %d\n", G.playedCardCount);
+        1:  104:	failure  += asserttrue (savedData.handCount[player1]+2, G.handCount[player1]);
 call    0 returned 100%
-        1:  105:	failure  += asserttrue (savedData.playedCardCount+1,G.playedCardCount);
+        -:  105:	
+        1:  106:	printf("\n   Checking to see if the 3 cards were from current player's deck?\n");
 call    0 returned 100%
-        -:  106:	
-        1:  107:	printf("\nTEST 3. Check to see if player 2's handCount and deckCount remains the same\n");
+        1:  107:	failure  += asserttrue (savedData.deckCount[player1]-3, G.deckCount[player1]);
 call    0 returned 100%
-        1:  108:	printf("\n   Checking player 2's handCount\n");
+        -:  108:
+        1:  109:	printf("\nTEST 2. Check to see discardCard() function within Smithy Card's code worked\n");
 call    0 returned 100%
-        1:  109:	failure  += asserttrue (savedData.handCount[player2],G.handCount[player2]);
+        -:  110:	// NOTE: used card sent to discardCard() to be added on to a played pile
+        1:  111:	printf("\n   Checking... \n");
 call    0 returned 100%
-        1:  110:	printf("\n   Checking player 2's  deckCount\n");
+        1:  112:	printf("\n   Prev # of discard count = %d\n", savedData.playedCardCount);
 call    0 returned 100%
-        1:  111:	failure  += asserttrue (savedData.deckCount[player2],G.deckCount[player2]);
+        1:  113:	printf("\n   Current # of discard count = %d\n", G.playedCardCount);
 call    0 returned 100%
-        -:  112:	
-        1:  113:	printf("\nTEST 4. Check if kingdom and victory cards have any bugs\n");
+        1:  114:	failure  += asserttrue (savedData.playedCardCount+1,G.playedCardCount);
 call    0 returned 100%
-        1:  114:	printf("\n   Checking kingdom cards' supply piles\n");
+        -:  115:	
+        1:  116:	printf("\nTEST 3. Check to see if player 2's handCount and deckCount remains the same\n");
 call    0 returned 100%
-       11:  115:	for (i = 0; i < 10; i++) {
+        1:  117:	printf("\n   Checking player 2's handCount\n");
+call    0 returned 100%
+        1:  118:	failure  += asserttrue (savedData.handCount[player2],G.handCount[player2]);
+call    0 returned 100%
+        1:  119:	printf("\n   Checking player 2's  deckCount\n");
+call    0 returned 100%
+        1:  120:	failure  += asserttrue (savedData.deckCount[player2],G.deckCount[player2]);
+call    0 returned 100%
+        -:  121:	
+        1:  122:	printf("\nTEST 4. Check if kingdom and victory cards have any bugs\n");
+call    0 returned 100%
+        1:  123:	printf("\n   Checking kingdom cards' supply piles\n");
+call    0 returned 100%
+       11:  124:	for (i = 0; i < 10; i++) {
 branch  0 taken 91%
 branch  1 taken 9% (fallthrough)
-       10:  116:		failure  += asserttrue (savedData.supplyCount[k[i]], G.supplyCount[k[i]]);
+       10:  125:		failure  += asserttrue (savedData.supplyCount[k[i]], G.supplyCount[k[i]]);
 call    0 returned 100%
-        -:  117:	}
-        1:  118:	printf("\n   Checking province card pile:\n");
+        -:  126:	}
+        1:  127:	printf("\n   Checking province card pile:\n");
 call    0 returned 100%
-        1:  119:	failure  += asserttrue (savedData.supplyCount[province], G.supplyCount[province]);
+        1:  128:	failure  += asserttrue (savedData.supplyCount[province], G.supplyCount[province]);
 call    0 returned 100%
-        1:  120:	printf("\n   Checking duchy card pile:\n");
+        1:  129:	printf("\n   Checking duchy card pile:\n");
 call    0 returned 100%
-        1:  121:	failure  += asserttrue (savedData.supplyCount[duchy], G.supplyCount[duchy]);
+        1:  130:	failure  += asserttrue (savedData.supplyCount[duchy], G.supplyCount[duchy]);
 call    0 returned 100%
-        1:  122:	printf("\n   Checking estate card pile:\n");
+        1:  131:	printf("\n   Checking estate card pile:\n");
 call    0 returned 100%
-        1:  123:	failure  += asserttrue (savedData.supplyCount[estate], G.supplyCount[estate]);
+        1:  132:	failure  += asserttrue (savedData.supplyCount[estate], G.supplyCount[estate]);
 call    0 returned 100%
-        -:  124:	
-        1:  125:    if (failure > 0) {
+        -:  133:	
+        1:  134:    if (failure > 0) {
 branch  0 taken 100% (fallthrough)
 branch  1 taken 0%
-        1:  126:        printf("\nTEST FAILED\n");
+        1:  135:        printf("\nTEST FAILED\n");
 call    0 returned 100%
-        1:  127:        printf("Count of failed tests: %d\n",failure);
+        1:  136:        printf("Count of failed tests: %d\n",failure);
 call    0 returned 100%
-        -:  128:    }
-        -:  129:    else {
-    #####:  130:    	printf("\nPASSED ALL THE TESTS\n");
+        -:  137:    }
+        -:  138:    else {
+    #####:  139:    	printf("\nPASSED ALL THE TESTS\n");
 call    0 never executed
-    #####:  131:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
+    #####:  140:        printf("\nTEST SUCCESSFULLY COMPLETED\n\n");
 call    0 never executed
-        -:  132:    }
-        1:  133:    printf("**********************************************\n");
+        -:  141:    }
+        1:  142:    printf("**********************************************\n");
 call    0 returned 100%
-        1:  134:	return 0;
-        -:  135:}
+        1:  143:	return 0;
+        -:  144:}
 File 'dominion.c'
 Lines executed:23.80% of 563
 Branches executed:26.14% of 417
@@ -2670,7 +2682,7 @@ Creating 'dominion.c.gcov'
         -:    0:Runs:2
         -:    0:Programs:2
         -:    1:/*
-        -:    2:Team 4: (ONID: kohy) Kaylie's dominion.c code
+        -:    2:Team 4: (ONID: kohy) Hyejin's dominion.c code
         -:    3:https://github.com/kaylieko/CS362-004-S2018/tree/kohy-assignment-3/projects/kohy/dominion
         -:    4:*/
         -:    5:
@@ -4961,7 +4973,7 @@ Creating 'dominion.c.gcov'
         -:    0:Runs:3
         -:    0:Programs:3
         -:    1:/*
-        -:    2:Team 4: (ONID: kohy) Kaylie's dominion.c code
+        -:    2:Team 4: (ONID: kohy) Hyejin's dominion.c code
         -:    3:https://github.com/kaylieko/CS362-004-S2018/tree/kohy-assignment-3/projects/kohy/dominion
         -:    4:*/
         -:    5:
@@ -6913,7 +6925,7 @@ Player 1 has 0 cards in discard pile.
 
 TEST 1. Check player 1 gets to draw 1 card 
 
-   Check player 1's deckCount
+   Check player 1's handCount
 
 	Expected value: 5, actual value: 5
 
@@ -7157,7 +7169,7 @@ call    0 returned 100%
         -:   92:	
         1:   93:	printf("\nTEST 1. Check player 1 gets to draw 1 card \n");
 call    0 returned 100%
-        1:   94:	printf("\n   Check player 1's deckCount\n");
+        1:   94:	printf("\n   Check player 1's handCount\n");
 call    0 returned 100%
         1:   95:	failure  += asserttrue (savedData.handCount[player1], G.handCount[player1]);
 call    0 returned 100%
@@ -7254,7 +7266,7 @@ Creating 'dominion.c.gcov'
         -:    0:Runs:4
         -:    0:Programs:4
         -:    1:/*
-        -:    2:Team 4: (ONID: kohy) Kaylie's dominion.c code
+        -:    2:Team 4: (ONID: kohy) Hyejin's dominion.c code
         -:    3:https://github.com/kaylieko/CS362-004-S2018/tree/kohy-assignment-3/projects/kohy/dominion
         -:    4:*/
         -:    5:

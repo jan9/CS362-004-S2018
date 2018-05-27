@@ -64,6 +64,15 @@ int main()
     initializeGame(numPlayer, k, seed, &G);   // initialize a new game
     memcpy(&savedData, &G, sizeof(struct gameState));
 	
+
+	// randomize hand count and the player's hand
+	G.hand[player1][0] = smithy;	// first card on hand will be smithy cards
+	for (i = 1; i < G.handCount[player1]; i++) 
+	{
+		// fill the player's hand with random cards
+		G.hand[player1][i] = rand() % 27;
+       }
+        
 	printf("\n< P1 Data BEFORE Smithy Card is Played >\n");
 	// 1. check player 1's # of card in hand
 	printf("Player 1 has %d cards in hand.\n", savedData.handCount[player1]);
@@ -93,9 +102,9 @@ int main()
 	printf("\nTEST 1. Check to see whether or not player 1 got 3 extra cards \n");
 	printf("\n   Checking to see if player1 got 3 cards\n");
 	failure  += asserttrue (savedData.handCount[player1]+2, G.handCount[player1]);
+	
 	printf("\n   Checking to see if the 3 cards were from current player's deck?\n");
 	failure  += asserttrue (savedData.deckCount[player1]-3, G.deckCount[player1]);
-
 
 	printf("\nTEST 2. Check to see discardCard() function within Smithy Card's code worked\n");
 	// NOTE: used card sent to discardCard() to be added on to a played pile

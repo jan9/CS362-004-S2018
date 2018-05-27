@@ -1,5 +1,5 @@
 /*
-Team 4: (ONID: kohy) Kaylie's dominion.c code
+Team 4: (ONID: kohy) Hyejin's dominion.c code
 https://github.com/kaylieko/CS362-004-S2018/tree/kohy-assignment-3/projects/kohy/dominion
 */
 
