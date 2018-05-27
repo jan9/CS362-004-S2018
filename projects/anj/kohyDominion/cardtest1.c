@@ -140,8 +140,9 @@ int main()
 	printf("\nTEST 1. Player 1's Treasure counts should increase by 2 after card is played \n");
 	printf("\n   Checking Player 1's handCount\n");
 	failure  += asserttrue (savedData.handCount[player1]+2,G.handCount[player1]);
-	printf("\n   Checking Player 1's deckCount\n");
+	/*printf("\n   Checking Player 1's deckCount\n");
 	failure  += asserttrue (savedData.deckCount[player1],G.deckCount[player1] + 2);
+	*/
 	printf("\n   Checking Player 1's treasure count in hand\n");
 	failure  += asserttrue (newHandTreasure,origHandTreasure+2);
 	

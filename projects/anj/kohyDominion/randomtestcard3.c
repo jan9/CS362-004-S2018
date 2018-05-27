@@ -1,10 +1,10 @@
 /*
 * Author: Ju An
-* Date: May 12, 2018
-* OSU CS 362 - Assignment 4: Random Tester for Smithy Card
-* This is a random tester for Smithy card. 
-* It tests to see if the implemented code actually allows a player to get 3 extra cards
-* from the player's deck pile on the same turn.
+* Date: May 27, 2018
+* OSU CS 362 - Assignment 5: Random Tester for Great Hall Card
+* This is a random tester for Great Hall card. 
+* It tests to see if the implemented code actually allows a player to get one card from
+* the player's deck and do an extra actions instead of one on the same turn.
 */
 
 #include "dominion.h"
@@ -16,8 +16,7 @@
 #include <time.h>
 
 #define NUM_TRIES 1000	// number of tests 
-#define NUM_QUESTIONS 2
-
+#define NUM_QUESTIONS 3
 int main(){
 	int i, j, r;
 	int failed = 0;
@@ -39,7 +38,7 @@ int main(){
 	srand(time(NULL));
 	
 	for (i = 0; i < NUM_TRIES; i++){
-		printf("\n************ Testing Smithy Card: %d/%d ****************\n", i+1, NUM_TRIES);
+		printf("\n************ Testing Great Hall Card: %d/%d ****************\n", i+1, NUM_TRIES);
 		// randomize and setup the variables 
 		numPlayers = rand() % 3 + 2;
 		int seed = rand()%RAND_MAX;
@@ -60,7 +59,7 @@ int main(){
 		// randomize hand count and the player's hand
 		//treasure_pre = 0;
 		G.handCount[player1] = rand() % MAX_HAND;
-		G.hand[player1][0] = smithy;	// first card on hand will be smithy card
+		G.hand[player1][0] = great_hall;	// first card on hand will be village card
 		for (j = 1; j < G.handCount[player1]; j++) 
 		{
 			// fill the player's hand with random cards
@@ -70,31 +69,41 @@ int main(){
 		memcpy(&orig, &G, sizeof(struct gameState));
 		
 		//adventurer card effect	
-		cardEffect(smithy, choice1, choice2, choice3, &G, handpos, &bonus);
+		cardEffect(great_hall, choice1, choice2, choice3, &G, handpos, &bonus);
 
 		
 		printf("1. Checking card on the Player %d's HAND\n", player1);
 		printf("Card on HAND before using the adventurer card: %d\n", orig.handCount[player1]);
 		printf("Card on HAND after using the adventurer card: %d\n", G.handCount[player1]);
-		if((orig.handCount[player1])+2 != G.handCount[player1])
+		if((orig.handCount[player1]) == G.handCount[player1])
     	{
            failed++;
-           printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 3.\n\n", player1, ((G.handCount[player1])-(orig.handCount[player1])));
+           printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 1.\n\n", player1, ((G.handCount[player1])-(orig.handCount[player1])));
         }
         
         printf("\n2.Checking card on the Player %d's DECK\n", player1);
         printf("Card on DECK before using the adventurer card: %d\n", orig.deckCount[player1]);
 		printf("Card on DECK after using the adventurer card: %d\n", G.deckCount[player1]);
-		if((orig.deckCount[player1]) != G.deckCount[player1]+3)
+		if((orig.deckCount[player1]) == G.deckCount[player1])
     	{
            failed++;
-           printf(" ! TEST FAILED: Player %d took %d cards from deck, instead of 3.\n", player1, ((G.deckCount[player1])-(orig.deckCount[player1])));
+           printf(" ! TEST FAILED: Player %d took %d cards from deck, instead of 1.\n", player1, ((orig.deckCount[player1])-(G.deckCount[player1])));
         }
+        
+    	printf("\n3. Checking if the player took the extra cards on the same turn\n");
+        printf("NumActions left before using the adventurer card: %d\n", orig.numActions);
+		printf("NumActions left after using the adventurer card: %d\n", G.numActions);
+		if((orig.numActions+1) != G.numActions)
+    	{
+           failed++;
+           printf(" ! TEST FAILED: Player %d has %d actions left, instead of 1.\n", player1, (G.numActions-orig.numActions));
+        }
+        
         
 	}
 	printf("\n***************** RANDOM TESTING RESULTS *******************\n");
-	printf("\nFailed Tests: %d/%d\n", failed, (NUM_TRIES*NUM_QUESTIONS));
-	printf("\nPassed Tests: %d/%d\n", ((NUM_TRIES*NUM_QUESTIONS)-failed),(NUM_TRIES*NUM_QUESTIONS));
+	printf("\nFailed Tests: %d/%d \n", failed, NUM_TRIES*NUM_QUESTIONS);
+	printf("\nPassed Tests: %d/%d \n", ((NUM_TRIES*NUM_QUESTIONS)-failed), NUM_TRIES*NUM_QUESTIONS);
 	printf("\n***************** END OF RANDOM TESTING ********************\n");
 	return 0;
 }
