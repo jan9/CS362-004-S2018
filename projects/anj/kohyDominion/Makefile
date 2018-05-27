@@ -124,4 +124,4 @@ player: player.c interface.o
 all: randomtestcard1 randomtestcard2 randomtestcard3 randomtestadventurer cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out randomtestresults.out
 
 clean:
-	rm -f *.o *.exe playdom player *.exe  *.gcov *.gcda *.gcno *.so *.out 
+	rm -f *.o *.exe playdom player *.exe  *.gcov *.gcda *.gcno *.so
