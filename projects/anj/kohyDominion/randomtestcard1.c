@@ -79,7 +79,7 @@ int main(){
 		if((orig.handCount[player1])+2 != G.handCount[player1])
     	{
            failed++;
-           printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 3.\n\n", player1, ((G.handCount[player1])-(orig.handCount[player1])));
+           printf(" ! TEST FAILED: Player %d added %d cards to hand, instead of 3.\n\n", player1, ((G.handCount[player1])-(orig.handCount[player1])+1));
         }
         
         printf("\n2.Checking card on the Player %d's DECK\n", player1);
