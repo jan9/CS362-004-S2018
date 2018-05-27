@@ -118,6 +118,13 @@ randomtestresults.out: randomtestadventurer.c randomtestcard1.c randomtestcard2.
 	gcov dominion.c -b >> randomtestresults.out
 	cat dominion.c.gcov >> randomtestresults.out
 	
+	echo "randomtestcard3.c:" >> randomtestresults.out
+	./randomtestcard3 >> randomtestresults.out
+	gcov randomtestcard3.c -b >> randomtestresults.out
+	cat randomtestcard3.c.gcov >> randomtestresults.out
+	gcov dominion.c -b >> randomtestresults.out
+	cat dominion.c.gcov >> randomtestresults.out
+	
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
