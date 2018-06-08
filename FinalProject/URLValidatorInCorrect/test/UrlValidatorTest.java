@@ -44,7 +44,7 @@ public class UrlValidatorTest extends TestCase {
 		// invalid scheme
 		System.out.println("\nChecking invalid scheme... (Expected Results: 'Invalid indeed!!')");
 		for (int i = 0; i < invalidUrlScheme.length; i++) {
-			finalUrl = invalidUrlScheme[i] + authority;
+			finalUrl = invalidUrlScheme[i] + authority + port + path + query;
 			if (!urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Invalid indeed!!");
 			} else {
@@ -55,7 +55,7 @@ public class UrlValidatorTest extends TestCase {
 		// valid scheme  
 		System.out.println("\nChecking valid scheme... (Expected Results: 'Great!')");
 		for (int i = 0; i < validUrlScheme.length; i++) {
-			finalUrl = validUrlScheme[i] + authority;
+			finalUrl = validUrlScheme[i] + authority + port + path + query;
 			if (urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Great!");
 			} else {
@@ -76,7 +76,7 @@ public class UrlValidatorTest extends TestCase {
 		// invalid authority
 		System.out.println("\nChecking invalid authority... (Expected Results: 'Invalid indeed!!')");
 		for (int i = 0; i < invalidUrlAuthority.length; i++) {
-			finalUrl = scheme + invalidUrlAuthority[i];
+			finalUrl = scheme + invalidUrlAuthority[i] + port + path + query;
 			if (!urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Invalid indeed!!");
 			} else {
@@ -87,7 +87,7 @@ public class UrlValidatorTest extends TestCase {
 		// valid authority  
 		System.out.println("\nChecking valid authority... (Expected Results: 'Great!')");
 		for (int i = 0; i < validUrlAuthority.length; i++) {
-			finalUrl = scheme + validUrlAuthority[i];
+			finalUrl = scheme + validUrlAuthority[i] + port + path + query;
 			if (urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Great!");
 			} else {
@@ -109,7 +109,7 @@ public class UrlValidatorTest extends TestCase {
 		// invalid port
 		System.out.println("\nChecking invalid port... (Expected Results: 'Invalid indeed!!')");
 		for (int i = 0; i < invalidUrlPort.length; i++) {
-			finalUrl = scheme + authority + invalidUrlPort[i];
+			finalUrl = scheme + authority + invalidUrlPort[i] + path + query;
 			if (!urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Invalid indeed!!");
 			} else {
@@ -120,7 +120,7 @@ public class UrlValidatorTest extends TestCase {
 		// valid port  
 		System.out.println("\nChecking valid port...  (Expected Results: 'Great!')");
 		for (int i = 0; i < validUrlPort.length; i++) {
-			finalUrl = scheme + authority + validUrlPort[i];
+			finalUrl = scheme + authority + validUrlPort[i] + path + query;
 			if (urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Great!");
 			} else {
@@ -142,7 +142,7 @@ public class UrlValidatorTest extends TestCase {
 		// invalid path
 		System.out.println("\nChecking invalid path... (Expected Results: 'Invalid indeed!!')");
 		for (int i = 0; i < invalidUrlPath.length; i++) {
-			finalUrl = scheme + authority + invalidUrlPath[i];
+			finalUrl = scheme + authority + port + invalidUrlPath[i] + query;
 			if (!urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Invalid indeed!!");
 			} else {
@@ -153,7 +153,7 @@ public class UrlValidatorTest extends TestCase {
 		// valid path  
 		System.out.println("\nChecking valid port...  (Expected Results: 'Great!')");
 		for (int i = 0; i < validUrlPath.length; i++) {
-			finalUrl = scheme + authority + validUrlPath[i];
+			finalUrl = scheme + authority + port + validUrlPath[i] + query;
 			if (urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Great!");
 			} else {
@@ -175,7 +175,7 @@ public class UrlValidatorTest extends TestCase {
 		// invalid port
 		System.out.println("\nChecking invalid query... (Expected Results: 'Invalid indeed!!')");
 		for (int i = 0; i < invalidUrlQuery.length; i++) {
-			finalUrl = scheme + authority + invalidUrlQuery[i];
+			finalUrl = scheme + authority + port + invalidUrlQuery[i];
 			if (!urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Invalid indeed!!");
 			} else {
@@ -186,7 +186,7 @@ public class UrlValidatorTest extends TestCase {
 		// valid port  
 		System.out.println("\nChecking valid port...  (Expected Results: 'Great!')");
 		for (int i = 0; i < validUrlQuery.length; i++) {
-			finalUrl = scheme + authority + validUrlQuery[i];
+			finalUrl = scheme + authority + port + validUrlQuery[i];
 			if (urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Great!");
 			} else {
@@ -209,7 +209,7 @@ public class UrlValidatorTest extends TestCase {
 		// invalid path
 		System.out.println("\nChecking invalid path... (Expected Results: 'Invalid indeed!!')");
 		for (int i = 0; i < invalidUrlPath.length; i++) {
-			finalUrl = scheme + authority + invalidUrlPath[i];
+			finalUrl = scheme + authority + port + invalidUrlPath[i] + query;
 			if (!urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Invalid indeed!!");
 			} else {
@@ -220,7 +220,7 @@ public class UrlValidatorTest extends TestCase {
 		// valid path  
 		System.out.println("\nChecking valid port...  (Expected Results: 'Great!')");
 		for (int i = 0; i < validUrlPath.length; i++) {
-			finalUrl = scheme + authority + validUrlPath[i];
+			finalUrl = scheme + authority + port + validUrlPath[i] + query;
 			if (urlVal.isValid(finalUrl)) {
 				System.out.println("   " + finalUrl + " --> Great!");
 			} else {
